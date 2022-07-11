@@ -261,27 +261,26 @@ Markdown will give you an error about repeated R chunk labels.
 
 ``` r
 hotels %>%
-  count(adults) %>%
-  arrange(desc(adults))
+  count(adults, sort = TRUE)
 ```
 
     ## # A tibble: 14 × 2
     ##    adults     n
     ##     <dbl> <int>
-    ##  1     55     1
-    ##  2     50     1
-    ##  3     40     1
-    ##  4     27     2
-    ##  5     26     5
-    ##  6     20     2
-    ##  7     10     1
-    ##  8      6     1
-    ##  9      5     2
-    ## 10      4    62
-    ## 11      3  6202
-    ## 12      2 89680
-    ## 13      1 23027
-    ## 14      0   403
+    ##  1      2 89680
+    ##  2      1 23027
+    ##  3      3  6202
+    ##  4      0   403
+    ##  5      4    62
+    ##  6     26     5
+    ##  7      5     2
+    ##  8     20     2
+    ##  9     27     2
+    ## 10      6     1
+    ## 11     10     1
+    ## 12     40     1
+    ## 13     50     1
+    ## 14     55     1
 
 ### Exercise 6.
 
@@ -294,9 +293,43 @@ exercise?
 `label-me-2`).
 
 ``` r
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+  filter(is_canceled == 1)%>%
+  count(adults, sort = TRUE)
 ```
+
+    ## # A tibble: 14 × 2
+    ##    adults     n
+    ##     <dbl> <int>
+    ##  1      2 35258
+    ##  2      1  6674
+    ##  3      3  2151
+    ##  4      0   109
+    ##  5      4    16
+    ##  6     26     5
+    ##  7      5     2
+    ##  8     20     2
+    ##  9     27     2
+    ## 10      6     1
+    ## 11     10     1
+    ## 12     40     1
+    ## 13     50     1
+    ## 14     55     1
+
+``` r
+hotels %>%
+  filter(is_canceled == 0)%>%
+  count(adults, sort = TRUE)
+```
+
+    ## # A tibble: 5 × 2
+    ##   adults     n
+    ##    <dbl> <int>
+    ## 1      2 54422
+    ## 2      1 16353
+    ## 3      3  4051
+    ## 4      0   294
+    ## 5      4    46
 
 ### Exercise 7.
 
