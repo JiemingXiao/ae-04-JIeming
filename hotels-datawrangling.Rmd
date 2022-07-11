@@ -1,6 +1,6 @@
 ---
 title: "Hotel bookings - data wrangling"
-author: "Mine Çetinkaya-Rundel"
+author: "Jieming Xiao"
 output: github_document
 ---
 
@@ -38,11 +38,11 @@ Fill in the blanks for filtering for hotel bookings where the guest is **not** f
 
 **Note:** You will need to set `eval=TRUE` when you have an answer you want to try out.
 
-```{r travel-whim, eval=FALSE}
+```{r travel-whim, eval=TRUE}
 hotels %>%
   filter(
-    country ____ "USA", 
-    lead_time ____ ____
+    country != "USA", 
+    lead_time < 1
     )
 ```
 
@@ -57,10 +57,10 @@ In the following chunk, replace
 
 **Note:** You will need to set `eval=TRUE` when you have an answer you want to try out.
 
-```{r some-children, eval=FALSE}
+```{r some-children, eval=TRUE}
 hotels %>%
   filter(
-    children [AT LEAST] 1 [OR] babies [AT LEAST] 1
+    children >= 1 | babies >= 1
     )
 ```
 
@@ -72,29 +72,45 @@ Using `filter()` determine the number of bookings in resort hotels that have mor
 Then, do the same for city hotels, and compare the numbers of rows in the resulting filtered data frames.
 
 ```{r resort-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+  filter(hotel == "Resort Hotel",
+    children >= 1 | babies >= 1
+    )
 ```
 
 ```{r city-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+  filter(hotel == "City Hotel",
+    children >= 1 | babies >= 1
+    )
 ```
+Resort = 3929
+City = 5403
+More in city hotels than resort hotels.
+```{r}
+bookings_with_little_ones <- hotels %>%
+    filter(
+      children >= 1 | babies >= 1
+    )
+```
+There are 'r nrow(bookings_with_little_ones)' kids or babies in hotels. 
 
 ### Exercise 5.
 
 Create a frequency table of the number of `adults` in a booking.
 Display the results in descending order so the most common observation is on top.
 What is the most common number of adults in bookings in this dataset?
+2
 Are there any surprising results?
 
 **Note:** Don't forget to label your R chunk as well (where it says `label-me-1`).
 Your label should be short, informative, and shouldn't include spaces.
 It also shouldn't repeat a previous label, otherwise R Markdown will give you an error about repeated R chunk labels.
 
-```{r label-me-1}
-# add code here
-# pay attention to correctness and code style
+```{r adult_frequency}
+hotels %>%
+  count(adults) %>%
+  arrange(desc(adults))
 ```
 
 ### Exercise 6.
